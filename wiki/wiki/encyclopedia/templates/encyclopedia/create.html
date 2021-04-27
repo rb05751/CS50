@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Create Page</title>
+</head>
+
+<body>
+    <h1>Create your own page</h1>
+    <form action="{% url 'create' %}" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        <br>
+        <br>
+        <b>{{ field.label_tag }}</b> - {{ field }}
+        {% endfor %}
+        <input type="submit">
+    </form>
+</body>

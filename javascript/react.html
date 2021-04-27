@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://unpkg.com/react@16.14.0/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16.14.0/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js" crossorigin></script>
+    <title>Hello</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script type="text/babel">
+        class Hello extends React.Component {
+            render() {
+                return (
+                    <h1>Hello, {this.props.name}!</h1>
+                )
+            }
+        }
+        class App extends React.Component {
+            render() {
+                return (
+                    <div>
+                        <Hello name="Ryan" />
+                        <Hello name="Linda" />
+                        <Hello name="Nora" />
+                        <Hello name="Harry Potter" />
+                    </div>
+                );
+            }
+        }
+
+        ReactDOM.render(<App />, document.querySelector('#app'))
+    </script>
+</body>
+
+</html>

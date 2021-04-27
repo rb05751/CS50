@@ -1,0 +1,49 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<h2>This Listing</h2>
+<div>
+    {{listing.title}} <br>
+    <img src="{{listing.image_url}}" , width="300" , height="200" , alt="item"> <br>
+    Price = {{listing.price}} <br>
+    {{listing.description}}<br>
+    {% if value %}
+    <a href="{% url 'watch' listing.id %}">Add To Watchlist</a><br>
+    <a href="{% url 'remove' listing.id %}">Remove from Watchlist</a>
+    {% else %}
+    <a href="{% url 'watch' listing.id %}">Add To Watchlist</a>
+    {% endif %} <br>
+
+
+    {% if is_user and active %}
+    <a href="{% url 'close' listing.id %}">Close This Auction</a>
+    {% elif is_user and not active %}
+    <p style=color:red>This listing is closed and the winner is {{ winner }} with a bid of {{ bid }}</p>
+    <a href="{% url 'reactivate' listing.id %}">Reactivate This Auction</a>
+    {% elif not is_user and not active %}
+    <p style=color:red>This listing is closed and the winner is {{ winner }}</p>
+    {% endif %}
+</div>
+<br>
+<form action="{% url 'bid' listing.id %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input class="btn btn-primary" type="submit" value="Submit Bid">
+</form>
+<hr>
+<form action="{% url 'comment' listing.id %}" method="post">
+    {% csrf_token %}
+    {{comment_form.comment.label}}
+    <br>
+    {{ comment_form.comment }}
+    <br>
+    <input class="btn btn-primary" type="submit" value="Submit Comment">
+</form>
+<br>
+<h3>Comments</h3>
+<br>
+{% for comment in comments %}
+{{ comment.comment }}
+<br>
+{% endfor %}
+{% endblock %}

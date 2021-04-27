@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Currency</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            document.querySelector('form').onsubmit = () => {
+                fetch('http://api.currencylayer.com/live?access_key=a6c948c613268f1f645fe169e2f73c99&USD')
+                    .then(response => response.json())
+                    .then(data => {
+                        const currency = document.querySelector('#currency').value;
+                        const rate = data.quotes[`USD${currency}`];
+                        if (rate !== undefined) {
+                            document.querySelector('#result').innerHTML = `1 USD is equal to ${rate.toFixed(3)} ${currency}`;
+                        } else {
+                            document.querySelector('#result').innerHTML = 'Not a valid currency';
+                        }
+                    })
+                return false;
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <form>
+        <input id="currency" Placeholder="Currency Name" type="text">
+        <input type="submit">
+    </form>
+</body>
+<div id="result">
+</div>
+
+</html>
